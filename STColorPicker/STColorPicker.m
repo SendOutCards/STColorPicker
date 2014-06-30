@@ -35,6 +35,7 @@
         _glass = [[STGlass alloc] initWithFrame:CGRectMake(0.0, 0.0, 18.0, 18.0)];
         _glass.alpha = 1.0;
         [self addSubview:_glass];
+        self.clipsToBounds = YES;
 
         _resizedImage = [self resizeImage:_pickerImageView.image width:self.frame.size.width height:self.frame.size.height];
     }
@@ -52,7 +53,6 @@
     CGPoint position = [[touches anyObject] locationInView:_pickerImageView];
     
     _glass.alpha = 1.0;
-    _glass.center = position;
     
     if (position.x < 0)
         position.x = 0.0;
@@ -65,6 +65,8 @@
     
     if (position.y >= self.frame.size.height)
         position.y = self.frame.size.height - 1.0;
+    
+    _glass.center = position;
     
     UIColor *newColor = [self getPixelColorAtLocation:position];
     
